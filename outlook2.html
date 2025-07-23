@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Admissions Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <h1><i class="fas fa-graduation-cap"></i> EduAdmit</h1>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="#" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="#admissions"><i class="fas fa-file-alt"></i> Admissions</a></li>
+                    <li><a href="#records"><i class="fas fa-folder"></i> Records</a></li>
+                    <li><a href="#messages"><i class="fas fa-envelope"></i> Messages</a></li>
+                </ul>
+            </nav>
+            <div class="user-profile">
+                <img src="https://ui-avatars.com/api/?name=John+Doe" alt="User">
+                <span>John Doe</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+                <h2>Welcome back, John!</h2>
+                <p>Track your admission progress and manage your records</p>
+            </section>
+
+            <!-- Status Cards -->
+            <section class="status-cards">
+                <div class="card">
+                    <div class="card-icon application">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Application</h3>
+                        <p>In Progress</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon documents">
+                        <i class="fas fa-folder-open"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Documents</h3>
+                        <p>2/5 Uploaded</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon payment">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Payment</h3>
+                        <p>Pending</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Progress Tracker -->
+            <section class="progress-tracker">
+                <h3>Your Admission Progress</h3>
+                <div class="progress-steps">
+                    <div class="step completed">
+                        <div class="step-number">1</div>
+                        <div class="step-info">
+                            <h4>Application Form</h4>
+                            <p>Completed on 12/05/2023</p>
+                        </div>
+                    </div>
+                    <div class="step active">
+                        <div class="step-number">2</div>
+                        <div class="step-info">
+                            <h4>Document Submission</h4>
+                            <p>In progress</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-info">
+                            <h4>Payment</h4>
+                            <p>Pending</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-info">
+                            <h4>Admission Decision</h4>
+                            <p>Not available</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Document Upload -->
+            <section class="document-upload">
+                <h3>Upload Required Documents</h3>
+                <div class="upload-area" id="dropZone">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Drag & drop files here or click to browse</p>
+                    <p class="small">Supported formats: PDF, JPG, PNG (Max 5MB each)</p>
+                    <input type="file" id="fileInput" multiple style="display: none;">
+                    <button class="browse-btn">Browse Files</button>
+                </div>
+                <div class="uploaded-files" id="fileList">
+                    <!-- Files will appear here -->
+                </div>
+                <button class="upload-btn" id="uploadBtn">Upload Documents</button>
+            </section>
+
+            <!-- Quick Actions -->
+            <section class="quick-actions">
+                <h3>Quick Actions</h3>
+                <div class="action-buttons">
+                    <button class="action-btn">
+                        <i class="fas fa-university"></i>
+                        <span>Update Bank Details</span>
+                    </button>
+                    <button class="action-btn">
+                        <i class="fas fa-file-download"></i>
+                        <span>Request Transcript</span>
+                    </button>
+                    <button class="action-btn">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Help Center</span>
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

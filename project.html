@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edema</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   
+    <style>
+        :root {
+            --primary-color: #2962ff;
+            --secondary-color: #ff6d00;
+            --background-color: #f5f5f5;
+            --sidebar-width: 280px;
+            --card-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background-color);
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: white;
+            padding: 24px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            position: fixed;
+            height: 100vh;
+        }
+        
+        .sidebar-header {
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 30px;
+        }
+        
+        .sidebar-section-title {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            color: #555;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+        }
+        
+        .sidebar-menu li {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        
+        .sidebar-menu li:hover {
+            background-color: #f0f4ff;
+        }
+        
+        .sidebar-menu li i {
+            margin-right: 12px;
+            color: #757575;
+            width: 24px;
+            text-align: center;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 30px;
+        }
+        
+        .header {
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 1.8rem;
+            color: #333;
+        }
+        
+        .header h2 {
+            font-size: 1.2rem;
+            font-weight: normal;
+            color: #444;
+            margin-top: 8px;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Card Styles */
+        .card {
+            background-color: white;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 24px;
+        }
+        
+        .card-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+            color: #333;
+        }
+        
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+        
+        .metric-card {
+            padding: 16px;
+            text-align: center;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        
+        .metric-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .metric-value {
+            font-weight: bold;
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-top: 8px;
+        }
+        
+        /* Comparison Options */
+        .comparison-options {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            margin-top: 24px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid #ddd;
+            color: #333;
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        /* Subjects Tags */
+        .subjects-container {
+            margin-top: 24px;
+        }
+        
+        .subject-tag {
+            display: inline-block;
+            padding: 6px 12px;
+            margin: 0 8px 8px 0;
+            background-color: #e3f2fd;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+     <a href="PROJECT.PHP">ProjectPhp</a>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">Edema</div>
+        
+        <div class="sidebar-section">
+            <div class="sidebar-section-title">Dashboard</div>
+            <ul class="sidebar-menu">
+                <li>
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Calendar</span>
+                </li>
+                <li>
+                    <i class="fas fa-envelope"></i>
+                    <span>Messages</span>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="sidebar-section">
+            <div class="sidebar-section-title">ZERAKI PRODUCTS</div>
+            <ul class="sidebar-menu">
+                <li>
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Learning</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h1>Form 4 – KCSE 2023 – (2023 Term 3)</h1>
+            <h2 id="student-name">Loading...</h2>
+            <p id="admission-number">Admission Number: 15732</p>
+        </div>
+        
+        <!-- Analysis Card -->
+        <div class="card">
+            <div class="card-title">Analysis</div>
+            <p>Student's exam performance analysis</p>
+            
+            <div class="comparison-options">
+                <p>Compare analysis using:</p>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="targets">
+                    <label for="targets" style="margin-left: 8px;">Targets</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="previous-exam" checked>
+                    <label for="previous-exam" style="margin-left: 8px;">Previous exam</label>
+                </div>
+            </div>
+            
+            <div class="metrics-grid" id="metrics-container">
+                <!-- Metrics will be loaded here by JavaScript -->
+            </div>
+            
+            <div class="action-buttons">
+                <button class="btn btn-primary">
+                    <i class="fas fa-download"></i> Download
+                </button>
+                <button class="btn btn-outline">KCSE 2023</button>
+                <button class="btn btn-outline">Target</button>
+                <button class="btn btn-outline" id="student-btn">Loading...</button>
+                <button class="btn btn-outline">Form 4</button>
+            </div>
+        </div>
+        
+        <!-- Subjects -->
+        <div class="subjects-container">
+            <div class="card-title">Subjects</div>
+            <div id="subjects-list">
+                <!-- Subjects will be loaded here by JavaScript -->
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Fetch student data from PHP backend
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchStudentData();
+        });
+        
+        function fetchStudentData() {
+            // In a real app, you might get the admission number from URL params or user input
+            const admissionNumber = 'I5732';
+            
+            fetch(`api.php?action=get_student&admission_number=${admissionNumber}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Update student info
+                    document.getElementById('student-name').textContent = 
+                        `${data.full_name} – Class Of ${data.class} (${data.stream})`;
+                    document.getElementById('admission-number').textContent = 
+                        `Admission Number: ${data.admission_number}`;
+                    document.getElementById('student-btn').textContent = 
+                        data.full_name.split(' ')[0]; // First name only for button
+                    
+                    // Update metrics
+                    const metricsContainer = document.getElementById('metrics-container');
+                    metricsContainer.innerHTML = `
+                        <div class="metric-card">
+                            <div class="metric-label">Total Points</div>
+                            <div class="metric-value">${data.total_points} / ${data.max_points}</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Mean Points</div>
+                            <div class="metric-value">${data.mean_points} / ${data.max_mean_points}</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Overall Position</div>
+                            <div class="metric-value">${data.overall_position} / ${data.total_students}</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Stream Position</div>
+                            <div class="metric-value">${data.stream_position} / ${data.stream_students}</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Mean Grade</div>
+                            <div class="metric-value">${data.mean_grade}</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">KCFE</div>
+                            <div class="metric-value">${data.kcfe_score}</div>
+                        </div>
+                    `;
+                    
+                    // Update subjects
+                    const subjectsList = document.getElementById('subjects-list');
+                    subjectsList.innerHTML = data.subjects.map(subject => 
+                        `<span class="subject-tag">${subject}</span>`
+                    ).join('');
+                })
+                .catch(error => {
+                    console.error('Error fetching student data:', error);
+                    // Show error message to user
+                });
+        }
+    </script>
+</body>
+</html>

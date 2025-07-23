@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== Global Styles ===== */
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3f37c9;
+            --secondary: #3a0ca3;
+            --accent: #4cc9f0;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* ===== Layout Structure ===== */
+        .container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+
+        /* ===== Header Styles ===== */
+        .header {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: white;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            font-size: 1.8rem;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        /* ===== Sidebar Navigation ===== */
+        .sidebar {
+            background-color: white;
+            padding: 1.5rem 0;
+            height: 100%;
+            overflow-y: auto;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+            border-left: 3px solid var(--primary);
+        }
+
+        .nav-link i {
+            margin-right: 0.8rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* ===== Main Content Area ===== */
+        .main-content {
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-title {
+            font-size: 1.8rem;
+            color: var(--dark);
+        }
+
+        /* ===== Dashboard Cards ===== */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .card-icon.payment {
+            background-color: var(--success);
+        }
+
+        .card-icon.attendance {
+            background-color: var(--accent);
+        }
+
+        .card-icon.performance {
+            background-color: var(--warning);
+        }
+
+        .card-icon.notice {
+            background-color: var(--danger);
+        }
+
+        .card-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* ===== Data Tables ===== */
+        .data-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: var(--dark);
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--border-radius);
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .status {
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status.paid {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: var(--success);
+        }
+
+        .status.pending {
+            background-color: rgba(255, 152, 0, 0.1);
+            color: var(--warning);
+        }
+
+        .status.overdue {
+            background-color: rgba(244, 67, 54, 0.1);
+            color: var(--danger);
+        }
+
+        /* ===== Charts Container ===== */
+        .charts-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        .chart-placeholder {
+            height: 300px;
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+        }
+
+        /* ===== Responsive Design ===== */
+        @media (max-width: 992px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none; /* Can be toggled with JavaScript */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <h1><i class="fas fa-graduation-cap"></i> EduManage</h1>
+            </div>
+            <div class="user-profile">
+                <img src="https://ui-avatars.com/api/?name=Admin+User" alt="User">
+                <span>Admin User</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>Students</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>Teachers</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-book"></i>
+                        <span>Courses</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Payments</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        <span>Transactions</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Performance</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Attendance</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="dashboard-header">
+                <h1 class="dashboard-title">Dashboard Overview</h1>
+                <div class="date-selector">
+                    <span>Today: <strong>May 15, 2023</strong></span>
+                </div>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="cards-container">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Total Payments</h3>
+                        <div class="card-icon payment">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">$24,580</div>
+                    <div class="card-footer">
+                        <span>This Month</span>
+                        <span><i class="fas fa-arrow-up"></i> 12%</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Attendance Rate</h3>
+                        <div class="card-icon attendance">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">94.5%</div>
+                    <div class="card-footer">
+                        <span>This Month</span>
+                        <span><i class="fas fa-arrow-up"></i> 3.2%</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Avg. Performance</h3>
+                        <div class="card-icon performance">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">87.2%</div>
+                    <div class="card-footer">
+                        <span>Current Term</span>
+                        <span><i class="fas fa-arrow-down"></i> 1.5%</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">New Notices</h3>
+                        <div class="card-icon notice">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">5</div>
+                    <div class="card-footer">
+                        <span>Unread</span>
+                        <span><i class="fas fa-bell"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-container">
+                <div class="chart-card">
+                    <div class="section-header">
+                        <h3 class="section-title">Payment Trends</h3>
+                        <select class="btn">
+                            <option>Last 30 Days</option>
+                            <option>Last 90 Days</option>
+                            <option>This Year</option>
+                        </select>
+                    </div>
+                    <div class="chart-placeholder">
+                        [Payment Chart Would Appear Here]
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="section-header">
+                        <h3 class="section-title">Performance Overview</h3>
+                        <select class="btn">
+                            <option>Current Term</option>
+                            <option>Last Term</option>
+                            <option>Annual</option>
+                        </select>
+                    </div>
+                    <div class="chart-placeholder">
+                        [Performance Chart Would Appear Here]
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Payments Table -->
+            <div class="data-section">
+                <div class="section-header">
+                    <h3 class="section-title">Recent Payments</h3>
+                    <button class="btn btn-primary">View All</button>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Payment ID</th>
+                                <th>Student</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#PAY-2023-001</td>
+                                <td>John Smith</td>
+                                <td>May 14, 2023</td>
+                                <td>$450.00</td>
+                                <td>Tuition</td>
+                                <td><span class="status paid">Paid</span></td>
+                                <td><i class="fas fa-ellipsis-h"></i></td>
+                            </tr>
+                            <tr>
+                                <td>#PAY-2023-002</td>
+                                <td>Sarah Johnson</td>
+                                <td>May 13, 2023</td>
+                                <td>$320.00</td>
+                                <td>Activities</td>
+                                <td><span class="status paid">Paid</span></td>
+                                <td><i class="fas fa-ellipsis-h"></i></td>
+                            </tr>
+                            <tr>
+                                <td>#PAY-2023-003</td>
+                                <td>Michael Brown</td>
+                                <td>May 10, 2023</td>
+                                <td>$600.00</td>
+                                <td>Tuition</td>
+                                <td><span class="status pending">Pending</span></td>
+                                <td><i class="fas fa-ellipsis-h"></i></td>
+                            </tr>
+                            <tr>
+                                <td>#PAY-2023-004</td>
+                                <td>Emily Davis</td>
+                                <td>May 5, 2023</td>
+                                <td>$275.00</td>
+                                <td>Library</td>
+                                <td><span class="status overdue">Overdue</span></td>
+                                <td><i class="fas fa-ellipsis-h"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Student Performance Table -->
+            <div class="data-section">
+                <div class="section-header">
+                    <h3 class="section-title">Top Performing Students</h3>
+                    <button class="btn btn-primary">View All</button>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Name</th>
+                                <th>Class</th>
+                                <th>Average Score</th>
+                                <th>Attendance</th>
+                                <th>Progress</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#STU-1001</td>
+                                <td>Emma Wilson</td>
+                                <td>Grade 10A</td>
+                                <td>96.5%</td>
+                                <td>98%</td>
+                                <td><i class="fas fa-arrow-up" style="color: var(--success);"></i> 5.2%</td>
+                            </tr>
+                            <tr>
+                                <td>#STU-1002</td>
+                                <td>James Miller</td>
+                                <td>Grade 11B</td>
+                                <td>94.2%</td>
+                                <td>97%</td>
+                                <td><i class="fas fa-arrow-up" style="color: var(--success);"></i> 3.8%</td>
+                            </tr>
+                            <tr>
+                                <td>#STU-1003</td>
+                                <td>Olivia Taylor</td>
+                                <td>Grade 9C</td>
+                                <td>93.7%</td>
+                                <td>96%</td>
+                                <td><i class="fas fa-arrow-up" style="color: var(--success);"></i> 4.1%</td>
+                            </tr>
+                            <tr>
+                                <td>#STU-1004</td>
+                                <td>William Anderson</td>
+                                <td>Grade 12A</td>
+                                <td>92.9%</td>
+                                <td>95%</td>
+                                <td><i class="fas fa-arrow-up" style="color: var(--success);"></i> 2.7%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
