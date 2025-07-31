@@ -14,7 +14,7 @@ cursor = connection.cursor()
 # Confirm connection and database
 cursor.execute("SELECT DATABASE();")
 db_name = cursor.fetchone()
-print("📦 Currently using database:", db_name[0])
+print(" Currently using database:", db_name[0])
 
 # Create table and insert data
 cursor.execute("""
